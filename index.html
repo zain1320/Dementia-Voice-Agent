@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenAI Real-time Audio Demo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <svg viewBox="0 0 24 24" class="app-logo" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19.5 8.25L12 12.75L4.5 8.25M12 21.75L12 12.75M12 2.25L19.5 6.75L12 11.25L4.5 6.75L12 2.25Z" 
+                          stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 21.75L19.5 17.25L19.5 8.25M12 21.75L4.5 17.25L4.5 8.25" 
+                          stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <h1>OpenAI Realtime Audio Demo</h1>
+        </div>
+        
+        <div class="controls">
+            <button id="startButton">Start</button>
+            <button id="stopButton" disabled>Stop</button>
+            <button id="clearButton">Clear</button>
+            <button id="cameraToggle">📹 Enable Camera</button>
+            <select id="voiceSelect" class="voice-select">
+                <option value="alloy">Alloy</option>
+                <option value="ash">Ash</option>
+                <option value="ballad">Ballad</option>
+                <option value="coral">Coral</option>
+                <option value="echo" selected>Echo</option>
+                <option value="sage">Sage</option>
+                <option value="shimmer">Shimmer</option>
+                <option value="verse">Verse</option>
+            </select>
+            <button id="promptToggle" class="prompt-toggle">⚙️ Customize System Prompt</button>
+        </div>
+
+        <div class="prompt-container" id="promptContainer" style="display: none;">
+            <div class="prompt-header">
+                <h3>System Prompt Configuration</h3>
+                <p>Customize how the AI assistant behaves and responds:</p>
+            </div>
+            <textarea id="systemPrompt" class="system-prompt" rows="6" placeholder="Enter your custom system prompt here..."></textarea>
+            <div class="prompt-actions">
+                <button id="resetPrompt" class="reset-btn">Reset to Default</button>
+                <button id="savePrompt" class="save-btn">Save & Apply</button>
+            </div>
+        </div>
+
+        <div class="content-wrapper">
+            <div class="transcript-container">
+                <div id="transcript" class="transcript">
+                    <!-- Conversation content -->
+                </div>
+            </div>
+            <div class="side-container">
+                <div class="camera-container" id="cameraContainer" style="display: none;">
+                    <video id="videoElement" autoplay muted playsinline></video>
+                    <canvas id="captureCanvas" style="display: none;"></canvas>
+                    <div class="camera-status" id="cameraStatus">Camera ready</div>
+                </div>
+                <div class="image-container" id="imageContainer">
+                    <!-- Image placeholder for testing -->
+                    <div class="image-placeholder">Image will appear here</div>
+                </div>
+                <div id="map" class="map-container">
+                    <!-- Map placeholder for testing -->
+                    <div class="map-placeholder">Map will appear here</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="status" class="status">Ready to start</div>
+        <div id="error" class="error"></div>
+        
+        <div class="cost-tracker" id="costTracker">
+            <div class="cost-header">
+                <h4>💰 API Usage Tracker</h4>
+                <button id="resetCosts" class="reset-costs-btn">Reset</button>
+            </div>
+            <div class="cost-breakdown">
+                <div class="cost-item">
+                    <span class="cost-label">Vision API:</span>
+                    <span id="visionCost" class="cost-value">$0.00</span>
+                    <span class="cost-count">(<span id="visionCount">0</span> calls)</span>
+                </div>
+                <div class="cost-item">
+                    <span class="cost-label">Voice Sessions:</span>
+                    <span id="sessionCost" class="cost-value">$0.00</span>
+                    <span class="cost-count">(<span id="sessionCount">0</span> sessions)</span>
+                </div>
+                <div class="cost-item">
+                    <span class="cost-label">Realtime Audio:</span>
+                    <span id="realtimeCost" class="cost-value">$0.00</span>
+                    <span class="cost-count">(~<span id="realtimeMinutes">0</span> min)</span>
+                </div>
+                <div class="cost-total">
+                    <strong>Total Estimated: <span id="totalCost">$0.00</span></strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="app.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+### Get Session Token
+GET http://localhost:8888/session
+Content-Type: application/json
+
+### Get Session Token with curl command
+# curl -X GET http://localhost:8888/session
+
+### Get Session Token with explicit headers
+GET http://localhost:8888/session
+Accept: application/json
+Content-Type: application/json
+
+### Direct test to OpenAI (for comparison)
+POST https://api.openai.com/v1/realtime/sessions
+Content-Type: application/json
+Authorization: Bearer {{$dotenv OPENAI_API_KEY}}
+
+{
+    "model": "gpt-4o-realtime-preview-2024-12-17",
+    "voice": "verse"
+} 
+
+### Get Weather for a location
+GET http://localhost:8888/weather/djjskkd
+Accept: application/json
