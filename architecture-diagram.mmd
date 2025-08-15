@@ -1,0 +1,64 @@
+graph TD
+    A[User Browser] --> B[index.html Interface]
+    B --> C[app.js Frontend Logic]
+    
+    C --> D[WebRTC Connection]
+    D --> E[OpenAI Realtime API]
+    E --> F[Audio Response]
+    F --> A
+    
+    C --> G[Camera Capture Every 2s]
+    G --> H[Base64 Image Data]
+    H --> I[POST /vision]
+    I --> J[FastAPI Backend]
+    
+    J --> K[GPT-4V Vision API]
+    K --> L[Activity Description]
+    L --> J
+    J --> C
+    C --> M[Inject Visual Context]
+    M --> D
+    
+    C --> N[Function Calls from AI]
+    N --> O{Function Type}
+    O -->|Weather| P[GET /weather/location]
+    O -->|Search| Q[GET /search/query]
+    
+    P --> J
+    Q --> J
+    
+    J --> R[Open-Meteo API]
+    J --> S[Serper Search API]
+    
+    R --> T[Weather Data + Coordinates]
+    S --> U[Search Results + Images]
+    
+    T --> J
+    U --> J
+    J --> V[Formatted Response]
+    V --> C
+    C --> W[Display Maps/Images/Results]
+    W --> A
+    
+    C --> X[Cost Tracking]
+    X --> Y[localStorage]
+    Y --> Z[Real-time UI Updates]
+    Z --> A
+    
+    subgraph "Backend Services"
+        J
+        R
+        S
+    end
+    
+    subgraph "OpenAI Services"
+        E
+        K
+    end
+    
+    subgraph "Frontend Components"
+        B
+        C
+        G
+        X
+    end
