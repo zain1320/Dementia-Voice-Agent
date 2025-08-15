@@ -1,6 +1,6 @@
 # Conversation and Detection Agent
 
-<img src="image1.png" width="600" height="400" />
+<img src="image.png" width="600" height="400" />
 
 A real-time conversational AI agent that combines OpenAI's GPT-4o realtime audio capabilities with computer vision for dementia care assistance. This system guides users through tea-making activities using voice interaction and visual observation.
 
